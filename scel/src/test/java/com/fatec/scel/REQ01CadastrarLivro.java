@@ -29,7 +29,7 @@ public class REQ01CadastrarLivro {
 	public void CT01CadastrarLivroComSucesso() {
 // dado que o isbn nao esta cadastrado
 		repository.deleteAll();
-// quando o usurio inclui as informacoes obrigatorias e confirma a operacao
+// quando o usuário inclui as informacoes obrigatorias e confirma a operacao
 		Livro livro = new Livro("3333", "Teste de Software", "Delamaro");
 		repository.save(livro);
 // entao
@@ -59,5 +59,44 @@ public class REQ01CadastrarLivro {
 		// then:
 		assertEquals(violations.size(), 1);
 		assertEquals("O titulo deve ser preenchido", violations.iterator().next().getMessage());
+	}
+	
+	@Test
+	public void CT04DeveDetectarISBNInvalido() {
+		validatorFactory = Validation.buildDefaultValidatorFactory();
+		validator = validatorFactory.getValidator();
+		// dado que o isbn do livro esta invalido
+		Livro livro = new Livro("", "Teste de Software", "Delamaro");
+		// when:
+		Set<ConstraintViolation<Livro>> violations = validator.validate(livro);
+		// then:
+		assertEquals(violations.size(), 1);
+		assertEquals("O isbn deve ser preenchido", violations.iterator().next().getMessage());
+	}
+	
+	@Test
+	public void CT05DeveDetectarAutorInvalido() {
+		validatorFactory = Validation.buildDefaultValidatorFactory();
+		validator = validatorFactory.getValidator();
+		// dado que o autor do livro esta invalido
+		Livro livro = new Livro("3333", "Teste de Software", "");
+		// when:
+		Set<ConstraintViolation<Livro>> violations = validator.validate(livro);
+		// then:
+		assertEquals(violations.size(), 1);
+		assertEquals("Autor invalido", violations.iterator().next().getMessage());
+	}
+	
+	@Test
+	public void CT06DeveDetectarAutorInvalido() {
+		validatorFactory = Validation.buildDefaultValidatorFactory();
+		validator = validatorFactory.getValidator();
+		// dado que o autor do livro tem mais de 50 caracteres
+		Livro livro = new Livro("3333", "Teste de Software", "012345678901234567890123456789012345678901234567890");
+		// when:
+		Set<ConstraintViolation<Livro>> violations = validator.validate(livro);
+		// then:
+		assertEquals(violations.size(), 1);
+		assertEquals("Autor deve ter entre 1 e 50 caracteres", violations.iterator().next().getMessage());
 	}
 }
