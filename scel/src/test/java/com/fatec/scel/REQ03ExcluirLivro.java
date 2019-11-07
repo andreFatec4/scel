@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.fatec.scel.model.Livro;
 import com.fatec.scel.model.LivroRepository;
 
-class REQ3ExcluirLivro {
+class REQ03ExcluirLivro {
 	@Autowired
 	LivroRepository repository;
 
