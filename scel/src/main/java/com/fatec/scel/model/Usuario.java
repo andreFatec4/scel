@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
-
 import org.hibernate.annotations.NaturalId;
 
 @Entity(name = "Usuario")
@@ -16,13 +15,13 @@ public class Usuario {
 	private Long id;
 	@NaturalId
 	@Column(nullable = false, length = 4)
-	@NotEmpty(message="O ra deve ser preenchido")
+	@NotEmpty(message="O RA do usuário deve ser preenchido")
 	private String ra;
 	@Column(nullable = false, length = 100)
-	@NotEmpty(message="O nome deve ser preenchido")
+	@NotEmpty(message="O nome do usuário deve ser preenchido")
 	private String nome;
 	@Column(nullable = false, length = 100)
-	@NotEmpty(message="O e-mail deve ser preenchido")
+	@NotEmpty(message="O Email do usuário deve ser preenchido")
 	private String email;
 	private String cep;
 	private String endereco;
@@ -75,9 +74,8 @@ public class Usuario {
 		this.endereco = endereco;
 	}
 
-	public Usuario(Long id, String ra, String nome, String email, String cep, String endereco) {
+	public Usuario(String ra, String nome, String email, String cep, String endereco) {
 		super();
-		this.id = id;
 		this.ra = ra;
 		this.nome = nome;
 		this.email = email;
