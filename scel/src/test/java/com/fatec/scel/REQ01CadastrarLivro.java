@@ -27,12 +27,12 @@ public class REQ01CadastrarLivro {
 	 */
 	@Test
 	public void CT01CadastrarLivroComSucesso() {
-// dado que o isbn nao esta cadastrado
+		// dado que o isbn nao esta cadastrado
 		repository.deleteAll();
-// quando o usuário inclui as informacoes obrigatorias e confirma a operacao
+		// quando o usuário inclui as informacoes obrigatorias e confirma a operacao
 		Livro livro = new Livro("3333", "Teste de Software", "Delamaro");
 		repository.save(livro);
-// entao
+		// entao
 		assertEquals(1, repository.count());
 	}
 

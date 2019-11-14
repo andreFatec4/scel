@@ -20,11 +20,14 @@ class REQ03ExcluirLivro {
 		repository.deleteAll();
 		// quando o usuario inclui as informacoes obrigatorias e confirma a operacao
 		Livro livro = new Livro("3333", "Teste de Software", "Delamaro");
+		// então o sistema assegura que o livro existe no bd
 		repository.save(livro);
+		// o sistema procura o livro pelo ISBN informado
 		Livro ro = repository.findByIsbn("3333");
+		// então deleta-o
 		repository.deleteById(ro.getId());
 		// entao o sistema valida as informações E envia uma mensagem de livro
-		// cadastrado com sucesso
+		// excluído com sucesso
 		assertThat(repository.findByIsbn("3333")).isEqualTo(null);
 	}
 
